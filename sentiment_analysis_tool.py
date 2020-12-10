@@ -51,7 +51,7 @@ def remove_media():
 
 def fetch_media():
 	formats=['jpg','jpeg','png','gif','webp']
-	media_path.set(askopenfilename())
+	media_path.set(askopenfilename(filetypes=[("Image files","*.jpg"),("Image files","*.gif"),("Image files","*.jpeg"),("Image files","*.png")]))
 	filename=media_path.get().split('/')[-1]
 	if not filename.isspace() and len(filename) != 0:
 		if filename.split(".")[-1].lower() in formats:
@@ -156,10 +156,11 @@ window.title("Sentiment Analyser Tool")
 window.resizable(False,False)
 
 content=StringVar()
-
+label=Label(window, text="Enter text here:", height=2,font=("Arial Bold", 30))
+label.grid(row=0, column=0, columnspan=2)
 #text area
 text=Text(window, borderwidth = 3, relief=RAISED, wrap=WORD)
-text.grid(row=0, column=0, columnspan=2, rowspan=15, padx=20)
+text.grid(row=1, column=0, columnspan=2, rowspan=15, padx=20)
 
 #analyse button
 b1=Button(window, text="Analyse", command=analyse)
@@ -177,7 +178,8 @@ add_media.grid(row=20, column=4)
 rm_media=Button(window, text="Remove media", command=remove_media)
 rm_media.grid(row=20, column=5)
 
-
+label=Label(window, text="Analysis results:", height=2,font=("Arial Bold", 30))
+label.grid(row=0, column=3, columnspan=3)
 #positive colour and score labels
 pos_val=StringVar()
 label=Label(window, height=1, width=2, relief=RAISED,bg='green')
@@ -229,7 +231,7 @@ res_label.grid(row=9, column=4, columnspan=2)
 #limit slider
 limit=DoubleVar()
 limit.set(0)
-label=Label(window, text="Set sentiment\nscore limit:", height=2)
+label=Label(window, text="Set sentiment\nscore filter:", height=2)
 label.grid(row=11, column=4,)
 lim_scale=Scale(window, variable = limit, from_ = -100, to = 100, orient = HORIZONTAL, sliderlength=10)
 lim_scale.grid(row=11, column=5)
